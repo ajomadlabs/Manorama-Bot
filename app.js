@@ -29,7 +29,7 @@ server.post('/api/messages', connector.listen());
 
 bot.dialog('/', [
     function (session) {
-    builder.Prompts.choice(session, "Hi I'm the Manorama Bot!", "Menu|Search");
+    builder.Prompts.choice(session, "Hi I'm AVA!", "Menu|Search");
 },
 function(session,results){
     if(results.response){
@@ -86,7 +86,7 @@ function(session,results){
 
         }
         else if(results.response.entity == "Bussiness"){
-            session.beginDialog("/Bussiness");
+            session.beginDialog("/BussinessNews");
                 
         }
         else if(results.response.entity == "Entertaintment"){
@@ -110,12 +110,12 @@ function(session,results){
 
 bot.dialog('/GeneralNews',[
     function(session){
-    builder.Prompts.choice(session,"Sections","Kerala|India|International");
+    builder.Prompts.choice(session,"Categories","Regional|National|International");
     
     },
     function(session,results){
         if(results.response){
-            if(results.response.entity == "Kerala")
+            if(results.response.entity == "Regional")
             {
                 api.getArticles("en","","","news_kerala",function(data){
                     api.getArticleDetails("en",data["articleSummary"][0]['articleID'],function(data2){
@@ -138,7 +138,7 @@ bot.dialog('/GeneralNews',[
                    
                 });
             }
-            if(results.response.entity == "India")
+            if(results.response.entity == "National")
             {
                 api.getArticles("en","","","news_nation",function(data){
                     api.getArticleDetails("en",data["articleSummary"][0]['articleID'],function(data2){
@@ -191,7 +191,7 @@ bot.dialog('/GeneralNews',[
 
 bot.dialog('/SportsNews',[
     function(session){
-    builder.Prompts.choice(session,"Sections","Cricket|Football|Others");
+    builder.Prompts.choice(session,"Categories","Cricket|Football|Others");
     
     },
     function(session,results){
@@ -273,7 +273,7 @@ bot.dialog('/SportsNews',[
 
 bot.dialog('/Bussiness',[
     function(session){
-    builder.Prompts.choice(session,"Sections","General|Gadgets|Autos|Companies");
+    builder.Prompts.choice(session,"Categories","General|Gadgets|Autos|Companies");
     
     },
     function(session,results){
@@ -377,7 +377,7 @@ bot.dialog('/Bussiness',[
 
 bot.dialog('/EntertaintmentNews',[
     function(session){
-    builder.Prompts.choice(session,"Sections","General|Music|Movies|Art");
+    builder.Prompts.choice(session,"Categories","General|Music|Movies|Art");
     
     },
     function(session,results){
@@ -481,7 +481,7 @@ bot.dialog('/EntertaintmentNews',[
 
 bot.dialog('/HealthNews',[
     function(session){
-    builder.Prompts.choice(session,"Sections","MentalHealth|Ayurveda|Nutrition|Fitness");
+    builder.Prompts.choice(session,"Categories","MentalHealth|Ayurveda|Nutrition|Fitness");
     
     },
     function(session,results){
