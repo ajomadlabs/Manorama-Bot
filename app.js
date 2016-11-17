@@ -26,21 +26,36 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-
+var i = 0;
 bot.dialog('/', [
     function (session) {
     builder.Prompts.choice(session, "Hi I'm the Manorama Bot!", "Menu|Search");
 },
 function(session,results){
     if(results.response){
-        if(results.response.entity == "Menu")
-            session.beginDialog('/newscategories');
+        if(results.response.entity == "Menu"){
+            i = i + 1;
+            session.beginDialog('/newscategories');}
         if(results.response.entity == "Search")
             session.beginDialog('/newssearch');
+       if( i > 5)
+           session.beginDialog('/advertisement');
     }
 
 }]);
-
+bot.dialog("/advertisement",[
+   function(session){
+      var msg = new builder.Message(session)
+                    .textFormat(builder.TextFormat.xml)
+                    .attachments([
+                        new builder.HeroCard(session)
+                            .images([
+                                builder.CardImage.create(session,'http://soulsteer.com/wp-content/uploads/2014/08/Get-BMW-5-Series-with-INR-50000-EMI-in-India-1024x659.jpg')
+                    ]);
+   ]);
+   }
+]);
+      
 bot.dialog("/newssearch",[
     function(session){
         builder.Prompts.text(session, "What should i search for ?");
